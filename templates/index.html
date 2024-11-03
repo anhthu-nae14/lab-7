@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán CIFAR-10</title>
+</head>
+<body>
+    <h1>Kết quả dự đoán CIFAR-10</h1>
+    <div>
+        <img id="image" alt="Ảnh từ CIFAR-10" width="300">
+        <p id="prediction">Dự đoán: </p>
+        <button onclick="getPrediction()">Dự đoán ảnh</button>
+    </div>
+
+    <script>
+        function getPrediction() {
+            fetch('/predict')
+                .then(response => response.json())
+                .then(data => {
+                    // Hiển thị ảnh base64
+                    document.getElementById('image').src = 'data:image/png;base64,' + data.image;
+
+                    // Hiển thị dự đoán
+                    document.getElementById('prediction').innerText = 'Dự đoán: ' + data.predicted_class;
+                });
+        }
+    </script>
+</body>
+</html>
